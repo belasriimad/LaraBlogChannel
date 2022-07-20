@@ -2,13 +2,24 @@ pipeline {
   agent any
   stages {
     stage('Build') {
-      steps {
-        sh 'php --version'
-        sh 'cp .env.example .env'
-        sh 'composer update'
-        sh 'php artisan key:generate'
-        sh 'php artisan migrate'
-        sh 'php artisan serve'
+      parallel {
+        stage('Build') {
+          steps {
+            sh 'php --version'
+            sh 'cp .env.example .env'
+            sh 'composer update'
+            sh 'php artisan key:generate'
+            sh 'php artisan migrate'
+          }
+        }
+
+        stage('NPM') {
+          steps {
+            sh 'npm install'
+            sh 'npm build'
+          }
+        }
+
       }
     }
 
