@@ -13,10 +13,9 @@ pipeline {
           }
         }
 
-        stage('NPM') {
+        stage('Sleep') {
           steps {
-            sh 'npm install'
-            sh 'npm run test'
+            sleep 10
           }
         }
 
