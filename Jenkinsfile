@@ -23,5 +23,11 @@ pipeline {
       }
     }
 
+    stage('PHP version') {
+      steps {
+        sh 'php -v'
+      }
+    }
+
   }
 }
