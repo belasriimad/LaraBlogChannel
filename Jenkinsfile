@@ -1,10 +1,5 @@
 pipeline {
-  agent {
-    node {
-      label 'mylabel'
-    }
-
-  }
+  agent any
   stages {
     stage('Download') {
       steps {
