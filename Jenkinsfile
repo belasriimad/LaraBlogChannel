@@ -28,5 +28,11 @@ pipeline {
       }
     }
 
+    stage('Mail') {
+      steps {
+        mail(subject: 'Testing', body: 'It works!', from: 'al2a.meskine@gmail.com', to: 'al2a.meskine@gmail.com')
+      }
+    }
+
   }
 }
