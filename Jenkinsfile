@@ -1,7 +1,7 @@
 pipeline {
   agent any
-    stages {
-     stage('Build') {
+  stages {
+    stage('Build') {
       steps {
         sh 'php -v'
         sh 'cp .env.example .env'
@@ -22,6 +22,12 @@ pipeline {
     stage('Migrate') {
       steps {
         sh 'php artisan migrate'
+      }
+    }
+
+    stage('Mail Notification') {
+      steps {
+        emailext(subject: 'Mail Test', body: 'This is a test', to: 'al2a.meskine@gmail.com')
       }
     }
 
