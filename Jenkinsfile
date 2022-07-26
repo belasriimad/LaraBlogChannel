@@ -31,5 +31,11 @@ pipeline {
       }
     }
 
+    stage('Create new file') {
+      steps {
+        prependToFile(file: 'Languages', content: 'A new file is born today')
+      }
+    }
+
   }
 }
