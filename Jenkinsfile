@@ -30,7 +30,7 @@ pipeline {
   }
   environment {
     DB_HOST = 'localhost'
-    DB_DATABASE = 'credentials("laravel_database")'
+    DB_DATABASE = 'database'
     DB_USERNAME = 'credentials("laravel_username")'
     DB_PASSWORD = 'credentials("laravel_password")'
   }
