@@ -1,7 +1,7 @@
 pipeline {
   agent any
   stages {
-    stage('') {
+    stage('Download ') {
       steps {
         git(url: 'github.com/alaameskine/LBC', branch: 'lbc', changelog: true, credentialsId: 'alaameskine')
       }
