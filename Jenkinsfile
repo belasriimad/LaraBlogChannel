@@ -6,10 +6,10 @@ pipeline {
         sh 'php -v'
         sh 'cp .env.example .env'
         sh 'composer update'
-        sh 'echo DB_HOST=${DB_HOST} >> .env'
-        sh 'echo DB_USERNAME=${DB_USERNAME} >> .env'
-        sh 'echo DB_DATABASE=${DB_DATABASE} >> .env'
-        sh 'echo DB_PASSWORD=${DB_PASSWORD} >> .env'
+        echo 'DB_HOST=${DB_HOST} >> .env'
+        echo 'DB_USERNAME=${DB_USERNAME} >> .env'
+        echo 'DB_DATABASE=${DB_DATABASE} >> .env'
+        echo 'DB_PASSWORD=${DB_PASSWORD} >> .env'
         sh 'php artisan key:generate'
       }
     }
