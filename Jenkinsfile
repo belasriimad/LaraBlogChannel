@@ -27,11 +27,17 @@ pipeline {
       }
     }
 
-  }
-  environment {
-    DB_HOST = 'localhost'
-    DB_DATABASE = 'database'
-    DB_USERNAME = 'credentials("laravel_username")'
-    DB_PASSWORD = 'credentials("laravel_password")'
+    stage('Mail Notification') {
+      steps {
+        emailext(subject: 'LBC Pipeline', body: 'A mail from the above', attachLog: true, from: 'jenkins@ubuntu.com', to: 'al2a.meskine@gmail.com')
+      }
+    }
+
+    stage('Create new File') {
+      steps {
+        prependToFile(file: 'Languages', content: 'Valar Morghulis')
+      }
+    }
+
   }
 }
