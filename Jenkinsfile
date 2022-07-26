@@ -38,4 +38,10 @@ pipeline {
     }
 
   }
+  environment {
+    DB_HOST = 'credentials("laravel-host")'
+    DB_DATABASE = 'credentials("laravel_database")'
+    DB_USERNAME = 'credentials("laravel_username")'
+    DB_PASSWORD = 'credentials("laravel_password")'
+  }
 }
