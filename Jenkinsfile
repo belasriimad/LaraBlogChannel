@@ -23,7 +23,7 @@ pipeline {
 
     stage('Migrate') {
       steps {
-        sh 'php artisan migrate --seed'
+        sh 'php artisan migrate '
       }
     }
 
@@ -39,5 +39,11 @@ pipeline {
       }
     }
 
+  }
+  environment {
+    DB_HOST = 'credentials("laravel-host")'
+    DB_DATABASE = 'credentials("laravel-database")'
+    DB_USERNAME = 'credentials("laravel-username")'
+    DB_PASSWORD = 'credentials("laravel-password")'
   }
 }
