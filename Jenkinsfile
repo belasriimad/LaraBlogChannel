@@ -23,7 +23,7 @@ pipeline {
 
     stage('Migrate') {
       steps {
-        sh 'php artisan migrate'
+        sh 'php artisan migrate --seed'
       }
     }
 
