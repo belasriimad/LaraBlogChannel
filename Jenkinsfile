@@ -6,15 +6,12 @@ pipeline {
         sh 'php -v'
         sh 'cp .env.example .env'
         sh 'composer update'
-        sh 'echo \'DB_HOST=${DB_HOST} >> .env\''
-        sh 'echo \'DB_USERNAME=${DB_USERNAME} >> .env\''
-        sh 'echo \'DB_DATABASE=${DB_DATABASE} >> .env\''
-        sh 'echo \'DB_PASSWORD=${DB_PASSWORD} >> .env\''
-        sh 'php artisan key:generate'
         sh 'cp .env .env.testing'
+        sh 'php artisan key:generate'
+        sh 'sed -i -e \'s/DB_DATABASE=homestead/DB_DATABASE=staging/g\' .env'
+        sh 'sed -i -e \'s/DB_USERNAME=homestead/DB_USERNAME=yourusername/g\' .env'
+        sh 'sed -i -e \'s/DB_PASSWORD=secret/DB_PASSWORD=yourpassword/g\' .env'
         sh 'cat .env'
-        sh 'cd config'
-        sh 'cat database.php'
       }
     }
 
@@ -43,11 +40,5 @@ pipeline {
       }
     }
 
-  }
-  environment {
-    DB_HOST = 'localhost'
-    DB_DATABASE = 'credentials("laravel-database")'
-    DB_USERNAME = 'credentials("laravel-username")'
-    DB_PASSWORD = 'credentials("laravel-password")'
   }
 }
