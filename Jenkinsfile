@@ -40,7 +40,7 @@ pipeline {
           name: 'Seed')]
 
 
-          echo "Seed class chosen: ${input}"
+          echo "Seed class chosen: ${input}" echo php artisan make:seed ${input}
         }
 
         sh 'php artisan make:seed input'
