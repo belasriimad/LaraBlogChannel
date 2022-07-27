@@ -42,4 +42,7 @@ pipeline {
     }
 
   }
+  environment {
+    DB_DATABASE = 'laravel'
+  }
 }
