@@ -34,7 +34,7 @@ pipeline {
     stage('Seed') {
       steps {
         script {
-          input message: 'What\'s your seed?',
+          env.seed = input message: 'What\'s your seed?',
           parameters: [string(defaultValue: '',
           description: 'Choose your class seed',
           name: 'Seed')]
@@ -43,8 +43,8 @@ pipeline {
           echo "Seed class chosen: ${env.seed}"
         }
 
-        sh 'php artisan make:seed ${Seed}'
-        sh 'php artisan db:seed {$Seed}'
+        sh 'php artisan make:seed ${env.seed}'
+        sh 'php artisan db:seed {$env.seed}'
       }
     }
 
