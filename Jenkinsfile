@@ -28,7 +28,7 @@ pipeline {
 
     stage('Migrate') {
       steps {
-        sh 'php artisan migrate:fresh'
+        sh 'php artisan migrate'
       }
     }
 
