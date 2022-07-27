@@ -31,15 +31,9 @@ pipeline {
       }
     }
 
-    stage('Mail Notification') {
+    stage('Seed') {
       steps {
-        emailext(subject: 'LBC Pipeline', body: 'A mail from the above', attachLog: true, from: 'jenkins@ubuntu.com', to: 'al2a.meskine@gmail.com')
-      }
-    }
-
-    stage('Create new File') {
-      steps {
-        prependToFile(file: 'Languages', content: 'Valar Morghulis')
+        sh 'php artisan db:seed'
       }
     }
 
