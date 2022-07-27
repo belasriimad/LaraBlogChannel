@@ -40,7 +40,7 @@ pipeline {
           name: 'Seed')]
 
 
-          echo "Seed class chosen: ${input}" | export input
+          echo "Seed class chosen: ${input}"
         }
 
         sh 'php artisan make:seed $input'
