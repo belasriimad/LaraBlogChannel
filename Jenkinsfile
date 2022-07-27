@@ -33,6 +33,7 @@ pipeline {
 
     stage('Seed') {
       steps {
+        input(message: 'Would you like to continue?', ok: 'Yes')
         sh 'php artisan db:seed'
       }
     }
