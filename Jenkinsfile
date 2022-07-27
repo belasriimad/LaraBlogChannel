@@ -14,6 +14,7 @@ pipeline {
         sh 'echo \'DB_DATABASE=${DB_DATABASE} >> .env\''
         sh 'php artisan config:cache'
         sh 'cat .env'
+        sh 'cp .env .env.testing'
       }
     }
 
