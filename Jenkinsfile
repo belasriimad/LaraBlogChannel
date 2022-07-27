@@ -44,4 +44,7 @@ pipeline {
     }
 
   }
+  environment {
+    DB_DATABASE = 'homestead'
+  }
 }
