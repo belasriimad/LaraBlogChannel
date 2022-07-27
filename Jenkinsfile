@@ -48,6 +48,12 @@ pipeline {
       }
     }
 
+    stage('Mail Notification') {
+      steps {
+        emailext(subject: 'LBC Pipeline', body: 'A mail from the above', attachLog: true, from: 'jenkins@ubuntu', to: 'al2a.meskine@gmail.com')
+      }
+    }
+
   }
   environment {
     DB_DATABASE = 'homestead'
