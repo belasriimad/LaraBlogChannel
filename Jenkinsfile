@@ -33,13 +33,21 @@ pipeline {
 
     stage('Seed') {
       steps {
-        input(message: 'Would you like to continue?', ok: 'Yes')
         sh 'php artisan db:seed'
-      }
-    }
+        script {
+          def userInput = input(id: 'userInput', message: 'Merge to?',
+          parameters: [[$class: 'ChoiceParameterDefinition', defaultValue: 'strDef',
+          description:'describing choices', name:'nameChoice', choices: "QA\nUAT\nProduction\nDevelop\nMaster"]
+        ])
 
+        println(userInput); //Use this value to branch to different logic if needed}
+      }
+
+    }
   }
-  environment {
-    DB_DATABASE = 'homestead'
-  }
+
+}
+environment {
+  DB_DATABASE = 'homestead'
+}
 }
