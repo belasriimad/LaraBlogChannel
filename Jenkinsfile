@@ -34,7 +34,7 @@ pipeline {
     stage('Seed') {
       steps {
         script {
-          env.seed = input message: 'What\'s your seed?',
+          input message: 'What\'s your seed?',
           parameters: [string(defaultValue: '',
           description: 'Choose your class seed',
           name: 'Seed')]
