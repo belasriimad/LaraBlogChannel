@@ -35,19 +35,24 @@ pipeline {
       steps {
         sh 'php artisan db:seed'
         script {
-          def userInput = input(id: 'userInput', message: 'Merge to?',
-          parameters: [[$class: 'ChoiceParameterDefinition', defaultValue: 'strDef',
-          description:'describing choices', name:'nameChoice', choices: "QA\nUAT\nProduction\nDevelop\nMaster"]
-        ])
+          env.USERNAME = input message: 'Please enter the username',
+          parameters: [string(defaultValue: '',
+          description: '',
+          name: 'Username')]
+          env.PASSWORD = input message: 'Please enter the password',
+          parameters: [password(defaultValue: '',
+          description: '',
+          name: 'Password')]
 
-        println(userInput); //Use this value to branch to different logic if needed}
+          echo "Username: ${env.USERNAME}"
+          echo "Password: ${env.PASSWORD}"
+        }
+
       }
-
     }
-  }
 
-}
-environment {
-  DB_DATABASE = 'homestead'
-}
+  }
+  environment {
+    DB_DATABASE = 'homestead'
+  }
 }
