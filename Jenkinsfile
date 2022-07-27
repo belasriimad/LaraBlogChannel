@@ -8,6 +8,7 @@ pipeline {
         sh 'composer update'
         sh 'cp .env .env.testing'
         sh 'php artisan key:generate'
+        sh 'echo \'DB_DATABASE=${DB_DATABASE} >> .env\''
         sh 'sed -i -e \'s/DB_DATABASE=homestead/DB_DATABASE=staging/g\' .env'
         sh 'sed -i -e \'s/DB_USERNAME=homestead/DB_USERNAME=yourusername/g\' .env'
         sh 'sed -i -e \'s/DB_PASSWORD=secret/DB_PASSWORD=yourpassword/g\' .env'
