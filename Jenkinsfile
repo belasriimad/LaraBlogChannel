@@ -40,7 +40,7 @@ pipeline {
           name: 'Seed')]
 
 
-          echo "Seed class chosen: ${input}" export input
+          echo "Seed class chosen: ${input}"
         }
 
         sh 'php artisan make:seed $input'
@@ -57,6 +57,6 @@ pipeline {
   }
   environment {
     DB_DATABASE = 'homestead'
-    CLASS = 'input'
+    input = 'UserTableSeeder'
   }
 }
