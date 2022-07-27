@@ -35,17 +35,13 @@ pipeline {
       steps {
         sh 'php artisan db:seed'
         script {
-          env.USERNAME = input message: 'Please enter the username',
+          env.seed = input message: 'What\'s your seed?',
           parameters: [string(defaultValue: '',
-          description: '',
-          name: 'Username')]
-          env.PASSWORD = input message: 'Please enter the password',
-          parameters: [password(defaultValue: '',
-          description: '',
-          name: 'Password')]
+          description: 'Choose your class seed',
+          name: 'Seed')]
 
-          echo "Username: ${env.USERNAME}"
-          echo "Password: ${env.PASSWORD}"
+
+          echo "Seed class chosen: ${env.seed}"
         }
 
       }
