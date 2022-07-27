@@ -13,6 +13,8 @@ pipeline {
         sh 'php artisan key:generate'
         sh 'cp .env .env.testing'
         sh 'cat .env'
+        sh 'cd config'
+        sh 'cat database.php'
       }
     }
 
