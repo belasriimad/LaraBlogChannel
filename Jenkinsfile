@@ -43,8 +43,8 @@ pipeline {
           echo "Seed class chosen: ${env.seed}"
         }
 
-        sh 'php artisan make:seed $CLASS'
-        sh 'php artisan db:seed $CLASS'
+        sh 'php artisan make:seed ${CLASS}'
+        sh 'php artisan db:seed {$CLASS}'
       }
     }
 
