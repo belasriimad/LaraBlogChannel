@@ -43,6 +43,7 @@ pipeline {
           echo "Seed class chosen: ${input}"
         }
 
+        retry(count: 3)
         sh 'php artisan make:seed $input'
         sh 'php artisan db:seed --class=$input'
       }
