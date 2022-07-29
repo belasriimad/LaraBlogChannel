@@ -34,7 +34,6 @@ pipeline {
     stage('Seeds') {
       steps {
         script {
-
           def USER_INPUT = input(
             message: 'How many seeds would you like to implement?',
             parameters: [
