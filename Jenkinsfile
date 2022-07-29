@@ -44,7 +44,7 @@ pipeline {
             ])
 
 
-            if( "${USER_INPUT}" == "1"){
+            if( "${USER_INPUT}" == 1){
               echo "You have chosen: ${USER_INPUT} seed"
               def SEED_INPUT = input(
                 message: 'What\'s your seed?',
@@ -59,8 +59,20 @@ pipeline {
               }
               else {
                 echo  "You have chosen: ${USER_INPUT} seeds"
-              }
+                i=0;
+                while(i < "${USER_INPUT}") {
+                  def SEED_ARRAY = input(message: 'What\'s your seed?',
+                  parameters:[string(defaultValue:'', description: 'Choose your class seed',
+                  name: 'Seed')])
 
+                  sh """
+                  echo "Seed class chosen: ${SUPER_SEED}"
+                  export SUPER_SEED=$SUPER_SEED
+                  php artisan make:seed $SUPER_SEED
+                  php artisan db:seed $SUPER_SEED """
+                  i++;
+                }
+              }
             }
 
           }
