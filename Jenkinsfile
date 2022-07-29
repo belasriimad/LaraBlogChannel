@@ -51,18 +51,19 @@ pipeline {
 
               if ("{$USER_INPUT}" == "1"){
                 echo "You have chosen: ${USER_INPUT} seed"
-                sh """
-                echo "Seed class chosen: ${SEED_INPUT}"
-                export SEED_INPUT=$SEED_INPUT
-                php artisan make:seed $SEED_INPUT
-                php artisan db:seed --class=$SEED_INPUT """ }
+                def SEED_INPUT = input(
+                  message: 'What\'s your seed?',
+                  parameters:[string(defaultValue: '',
+                  description: 'Choose your class seed',
+                  name: 'Seed')])
+                  sh """
+                  echo "Seed class chosen: ${SEED_INPUT}"
+                  export SEED_INPUT=$SEED_INPUT
+                  php artisan make:seed $SEED_INPUT
+                  php artisan db:seed --class=$SEED_INPUT """ }
 
-                else{
-                  SEED_INPUT = [input(
-                    message: 'What\'s your seed?',
-                    parameters:[string(defaultValue: '',
-                    description: 'Choose your class seed',
-                    name: 'Seed')]), input(
+                  else{
+                    def SEED_ARRAY = [input(
                       message: 'What\'s your seed?',
                       parameters:[string(defaultValue: '',
                       description: 'Choose your class seed',
@@ -70,24 +71,28 @@ pipeline {
                         message: 'What\'s your seed?',
                         parameters:[string(defaultValue: '',
                         description: 'Choose your class seed',
-                        name: 'Seed')]) ]
-                        echo  "You have chosen: ${USER_INPUT} seeds"
-                        for(i=0; i < $USER_INPUT; i++) {
-                          def SUPER_SEED = SEED_INPUT[i]
-                          sh """
-                          echo "Seed class chosen: ${SUPER_SEED}"
-                          export SUPER_SEED=$SUPER_SEED
-                          php artisan make:seed $SUPER_INPUT
-                          php artisan db:seed --class=$SUPER_SEED """
+                        name: 'Seed')]), input(
+                          message: 'What\'s your seed?',
+                          parameters:[string(defaultValue: '',
+                          description: 'Choose your class seed',
+                          name: 'Seed')]) ]
+                          echo  "You have chosen: ${USER_INPUT} seeds"
+                          for(i=0; i < $USER_INPUT; i++) {
+                            def SUPER_SEED = SEED_ARRAY[i]
+                            sh """
+                            echo "Seed class chosen: ${SUPER_SEED}"
+                            export SUPER_SEED=$SUPER_SEED
+                            php artisan make:seed $SUPER_INPUT
+                            php artisan db:seed --class=$SUPER_SEED """
+                          }
                         }
                       }
+
                     }
-
                   }
-                }
 
+                }
+                environment {
+                  DB_DATABASE = 'homestead'
+                }
               }
-              environment {
-                DB_DATABASE = 'homestead'
-              }
-            }
