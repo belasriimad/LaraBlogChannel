@@ -34,8 +34,9 @@ pipeline {
     stage('Seeds') {
       steps {
         script {
+
           def USER_INPUT = input(
-            message: 'How many seeds woud you like to implement?',
+            message: 'How many seeds would you like to implement?',
             parameters: [
               [$class: 'ChoiceParameterDefinition',
               choices: ['1','2','3'].join('\n'),
@@ -51,19 +52,14 @@ pipeline {
                 parameters:[string(defaultValue: '',
                 description: 'Choose your class seed',
                 name: 'Seed')] )
-                echo "Seed class chosen: ${SEED_INPUT}"
-              } else {
-                echo "You have chosen: ${USER_INPUT} seeds"
-                //do something else
+                echo "Seed class chosen: ${SEED_INPUT}" } else { echo  "You have chosen: ${USER_INPUT} seeds"}
               }
+
             }
-
           }
-        }
 
+        }
+        environment {
+          DB_DATABASE = 'homestead'
+        }
       }
-      environment {
-        DB_DATABASE = 'homestead'
-        input = 'UserTableSeeder'
-      }
-    }
