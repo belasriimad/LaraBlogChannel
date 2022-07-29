@@ -57,36 +57,37 @@ pipeline {
                 php artisan db:seed --class=$SEED_INPUT """ }
 
                 else{
-                  def SEED_ARRAY = [input(
+
+                  echo  "You have chosen: ${USER_INPUT} seeds"
+                  def SEED_ARRAY = [
                     message: 'What\'s your seed?',
                     parameters:[string(defaultValue: '',
                     description: 'Choose your class seed',
-                    name: 'Seed')]), input(
-                      message: 'What\'s your seed?',
-                      parameters:[string(defaultValue: '',
-                      description: 'Choose your class seed',
-                      name: 'Seed')]), input(
-                        message: 'What\'s your seed?',
-                        parameters:[string(defaultValue: '',
-                        description: 'Choose your class seed',
-                        name: 'Seed')]) ]
-                        echo  "You have chosen: ${USER_INPUT} seeds"
-                        for(i=0; i < $USER_INPUT; i++) {
-                          def SUPER_SEED = SEED_ARRAY[i]
-                          sh """
-                          echo "Seed class chosen: ${SUPER_SEED}"
-                          export SUPER_SEED=$SUPER_SEED
-                          php artisan make:seed $SUPER_INPUT
-                          php artisan db:seed --class=$SUPER_SEED """
-                        }
-                      }
+                    name: 'Seed')],
+                    message: 'What\'s your seed?',
+                    parameters:[string(defaultValue: '',
+                    description: 'Choose your class seed',
+                    name: 'Seed')],
+                    message: 'What\'s your seed?',
+                    parameters:[string(defaultValue: '',
+                    description: 'Choose your class seed',
+                    name: 'Seed')] ]
+                    for(i=0; i < $USER_INPUT; i++) {
+                      def SUPER_SEED = input(SEED_ARRAY[i])
+                      sh """
+                      echo "Seed class chosen: ${SUPER_SEED}"
+                      export SUPER_SEED=$SUPER_SEED
+                      php artisan make:seed $SUPER_SEED
+                      php artisan db:seed --class=$SUPER_SEED """
                     }
-
                   }
                 }
 
               }
-              environment {
-                DB_DATABASE = 'homestead'
-              }
             }
+
+          }
+          environment {
+            DB_DATABASE = 'homestead'
+          }
+        }
