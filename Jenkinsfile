@@ -38,27 +38,32 @@ pipeline {
             message: 'How many seeds woud you like to implement?',
             parameters: [
               [$class: 'ChoiceParameterDefinition',
-              choices: ['1','2', '3'].join('\n'),
+              choices: ['1','2','3'].join('\n'),
               name: 'input',
-              description: 'Menu - select box option']
+              description: 'Select the number of seeds']
             ])
 
 
             if( "${USER_INPUT}" == "1"){
-              echo "The answer is: ${USER_INPUT} seed"
-              //do something
-            } else {
-              echo "The answer is: ${USER_INPUT} seeds"
-              //do something else
+              echo "You have chosen: ${USER_INPUT} seed"
+              def SEED_INPUT = input(
+                message: 'What\'s your seed?',
+                parameters:[string(defaultValue: '',
+                description: 'Choose your class seed',
+                name: 'Seed')] )
+                echo "Seed class chosen: ${SEED_INPUT}"
+              } else {
+                echo "You have chosen: ${USER_INPUT} seeds"
+                //do something else
+              }
             }
+
           }
-
         }
-      }
 
+      }
+      environment {
+        DB_DATABASE = 'homestead'
+        input = 'UserTableSeeder'
+      }
     }
-    environment {
-      DB_DATABASE = 'homestead'
-      input = 'UserTableSeeder'
-    }
-  }
