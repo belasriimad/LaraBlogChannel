@@ -57,11 +57,8 @@ pipeline {
                 php artisan make:seed $SEED_INPUT
                 php artisan db:seed --class=$SEED_INPUT """ }
 
-                SEED_INPUT = [input(
-                  message: 'What\'s your seed?',
-                  parameters:[string(defaultValue: '',
-                  description: 'Choose your class seed',
-                  name: 'Seed')]), input(
+                else{
+                  SEED_INPUT = [input(
                     message: 'What\'s your seed?',
                     parameters:[string(defaultValue: '',
                     description: 'Choose your class seed',
@@ -69,10 +66,11 @@ pipeline {
                       message: 'What\'s your seed?',
                       parameters:[string(defaultValue: '',
                       description: 'Choose your class seed',
-                      name: 'Seed')]) ]
-
-
-                      if ("{$USER_INPUT}" != "1") {
+                      name: 'Seed')]), input(
+                        message: 'What\'s your seed?',
+                        parameters:[string(defaultValue: '',
+                        description: 'Choose your class seed',
+                        name: 'Seed')]) ]
                         echo  "You have chosen: ${USER_INPUT} seeds"
                         for(i=0; i < $USER_INPUT; i++) {
                           def SUPER_SEED = SEED_INPUT[i]
