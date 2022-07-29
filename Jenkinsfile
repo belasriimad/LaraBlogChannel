@@ -44,7 +44,7 @@ pipeline {
             ])
 
 
-            if( "${USER_INPUT}" == 1){
+            if( "${USER_INPUT}" == "1"){
               echo "You have chosen: ${USER_INPUT} seed"
               def SEED_INPUT = input(
                 message: 'What\'s your seed?',
