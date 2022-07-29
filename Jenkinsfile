@@ -54,7 +54,7 @@ pipeline {
                 echo "Seed class chosen: ${SEED_INPUT}" }
               }
 
-              sh 'export SEED_INPUT'
+              sh 'export SEED_INPUT=$SEED_INPUT'
               sh 'php artisan make:seed $SEED_INPUT'
               sh 'php artisan db:seed --class=$SEED_INPUT'
             }
