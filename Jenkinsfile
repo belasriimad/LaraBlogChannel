@@ -34,6 +34,7 @@ pipeline {
     stage('Seeds') {
       steps {
         script {
+
           def USER_INPUT = input(
             message: 'How many seeds would you like to implement?',
             parameters: [
@@ -51,11 +52,11 @@ pipeline {
                 parameters:[string(defaultValue: '',
                 description: 'Choose your class seed',
                 name: 'Seed')] )
-                sh '''
-echo "Seed class chosen: ${SEED_INPUT}"
-export SEED_INPUT=$SEED_INPUT
-php artisan make:seed $SEED_INPUT
-php artisan db:seed --class=$SEED_INPUT '''
+                sh """
+                echo "Seed class chosen: ${SEED_INPUT}"
+                export SEED_INPUT=$SEED_INPUT
+                php artisan make:seed $SEED_INPUT
+                php artisan db:seed --class=$SEED_INPUT """
               }
               else {
                 echo  "You have chosen: ${USER_INPUT} seeds"
