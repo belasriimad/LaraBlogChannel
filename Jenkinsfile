@@ -60,7 +60,7 @@ pipeline {
               else {
                 echo  "You have chosen: ${USER_INPUT} seeds"
                 i=0;
-                while(i < "${USER_INPUT}") {
+                while(i < $USER_INPUT) {
                   def SEED_ARRAY = input(message: 'What\'s your seed?',
                   parameters:[string(defaultValue:'', description: 'Choose your class seed',
                   name: 'Seed')])
