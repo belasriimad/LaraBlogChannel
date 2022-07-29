@@ -51,7 +51,7 @@ pipeline {
                 parameters:[string(defaultValue: '',
                 description: 'Choose your class seed',
                 name: 'Seed')] )
-                echo "Seed class chosen: ${SEED_INPUT}" } else { echo  "You have chosen: ${USER_INPUT} seeds"}
+                echo "Seed class chosen: ${SEED_INPUT}" sh ('php artisan make:seed ${SEED_INPUT}') } else { echo  "You have chosen: ${USER_INPUT} seeds"}
               }
 
             }
