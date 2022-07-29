@@ -31,35 +31,34 @@ pipeline {
       }
     }
 
-    stage('Seed') {
+    stage('Seeds') {
       steps {
-        retry(count: 3) {
-          script {
-            input = input message: 'What\'s your seed?',
-            parameters: [string(defaultValue: '',
-            description: 'Choose your class seed',
-            name: 'Seed')]
+        script {
+          // Define Variable
+          def USER_INPUT = input(
+            message: 'User input required - Some Yes or No question?',
+            parameters: [
+              [$class: 'ChoiceParameterDefinition',
+              choices: ['no','yes'].join('\n'),
+              name: 'input',
+              description: 'Menu - select box option']
+            ])
 
+            echo "The answer is: ${USER_INPUT}"
 
-            echo "Seed class chosen: ${input}"
+            if( "${USER_INPUT}" == "yes"){
+              //do something
+            } else {
+              //do something else
+            }
           }
 
-          sh 'php artisan make:seed $input'
-          sh 'php artisan db:seed --class=$input'
         }
-
       }
-    }
 
-    stage('Mail Notification') {
-      steps {
-        emailext(subject: 'LBC Pipeline', body: 'A mail from the above', attachLog: true, from: 'jenkins@ubuntu', to: 'al2a.meskine@gmail.com')
-      }
     }
-
+    environment {
+      DB_DATABASE = 'homestead'
+      input = 'UserTableSeeder'
+    }
   }
-  environment {
-    DB_DATABASE = 'homestead'
-    input = 'UserTableSeeder'
-  }
-}
