@@ -38,13 +38,13 @@ pipeline {
             message: 'How many seeds would you like to implement?',
             parameters: [
               [$class: 'ChoiceParameterDefinition',
-              choices: [1, 2, 3].join('\n'),
+              choices: ['1', '2', '3'].join('\n'),
               name: 'input',
               description: 'Select the number of seeds']
             ])
 
 
-            if( "${USER_INPUT}" == 1){
+            if( "${USER_INPUT}" == "1"){
               echo "You have chosen: ${USER_INPUT} seed"
               def SEED_INPUT = input(
                 message: 'What\'s your seed?',
