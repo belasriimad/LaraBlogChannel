@@ -34,21 +34,21 @@ pipeline {
     stage('Seeds') {
       steps {
         script {
-          // Define Variable
           def USER_INPUT = input(
-            message: 'User input required - Some Yes or No question?',
+            message: 'How many seeds woud you like to implement?',
             parameters: [
               [$class: 'ChoiceParameterDefinition',
-              choices: ['no','yes'].join('\n'),
+              choices: ['1','2', '3'].join('\n'),
               name: 'input',
               description: 'Menu - select box option']
             ])
 
-            echo "The answer is: ${USER_INPUT}"
 
-            if( "${USER_INPUT}" == "yes"){
+            if( "${USER_INPUT}" == "1"){
+              echo "The answer is: ${USER_INPUT} seed"
               //do something
             } else {
+              echo "The answer is: ${USER_INPUT} seeds"
               //do something else
             }
           }
