@@ -38,52 +38,35 @@ pipeline {
             message: 'How many seeds would you like to implement?',
             parameters: [
               [$class: 'ChoiceParameterDefinition',
-              choices: ['1', '2', '3','4'].join('\n'),
+              choices: ['1', '2', '3','4', '5', '6', '7', '8', '9', '10'].join('\n'),
               name: 'inputChoice',
               description: 'Select the number of seeds']
             ])
-
-            if( {"$inputChoice"} == "1"){
-              echo "You have chosen: ${USER_INPUT} seed"
-              def SEED_INPUT = input(
-                message: 'What\'s your seed?',
-                parameters:[string(defaultValue: '',
-                description: 'Choose your class seed',
-                name: 'seedChoice')] )
-                sh """
-                echo "Seed class chosen: ${SEED_INPUT}"
-                export SEED_INPUT=$SEED_INPUT
-                php artisan make:seed $SEED_INPUT
-                php artisan db:seed --class=$SEED_INPUT """
-              }
-
-              else {
-                echo  "You have chosen: ${USER_INPUT} seeds"
-                int count = "${USER_INPUT}" as Integer
-                for(i=0; i < count; i++) {
-                  def SEED_ARRAY = input(message: 'What\'s your seed?',
-                  parameters:[string(defaultValue:'', description: 'Choose your class seed',
-                  name: 'seed')])
-                  sh """
-                  echo "Seed class chosen: ${SEED_ARRAY}"
-                  export SEED_ARRAY=$SEED_ARRAY
-                  php artisan make:seed $SEED_ARRAY
-                  php artisan db:seed --class=$SEED_ARRAY """
-                }
-              }
+            echo  "You have chosen: ${USER_INPUT} seeds"
+            int count = "${USER_INPUT}" as Integer
+            for(i=0; i < count; i++) {
+              def SEED_ARRAY = input(message: 'What\'s your seed?',
+              parameters:[string(defaultValue:'', description: 'Choose your class seed',
+              name: 'seed')])
+              sh """
+              echo "Seed class chosen: ${SEED_ARRAY}"
+              export SEED_ARRAY=$SEED_ARRAY
+              php artisan make:seed $SEED_ARRAY
+              php artisan db:seed --class=$SEED_ARRAY """
             }
-
           }
-        }
 
-        stage('Mail Notification') {
-          steps {
-            emailext(subject: 'LBC Pipeline', body: 'A mail from above', attachLog: true, from: 'jenkins@ubuntu.com', to: 'al2a.meskine@gmail.com')
-          }
         }
+      }
 
+      stage('Mail Notification') {
+        steps {
+          emailext(subject: 'LBC Pipeline', body: 'A mail from above', attachLog: true, from: 'jenkins@ubuntu.com', to: 'al2a.meskine@gmail.com')
+        }
       }
-      environment {
-        DB_DATABASE = 'homestead'
-      }
+
     }
+    environment {
+      DB_DATABASE = 'homestead'
+    }
+  }
