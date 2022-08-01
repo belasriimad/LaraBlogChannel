@@ -42,7 +42,7 @@ pipeline {
               name: 'inputChoice',
               description: 'Select the number of seeds']
             ])
-            echo  "You have chosen: ${USER_INPUT} seeds"
+            echo  "You have chosen: ${USER_INPUT} seed(s)"
             int count = "${USER_INPUT}" as Integer
             for(i=0; i < count; i++) {
               def SEED_ARRAY = input(message: 'What\'s your seed?',
