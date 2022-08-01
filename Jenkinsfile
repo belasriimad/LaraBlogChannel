@@ -59,18 +59,10 @@ pipeline {
 
               else {
                 echo  "You have chosen: {$USER_INPUT} seeds"
-                for(i=0; i < params.inputChoice.toInteger(); i++) {
-                  def SEED_ARRAY = [input(message: 'What\'s your seed?',
+                for(i in 0..params.Integer.parseInt(inputChoice)) {
+                  def SEED_ARRAY = input(message: 'What\'s your seed?',
                   parameters:[string(defaultValue:'', description: 'Choose your class seed',
-                  name: 'seed')]), input(message: 'What\'s your seed?',
-                  parameters:[string(defaultValue:'', description: 'Choose your class seed',
-                  name: 'seed')]),input(message: 'What\'s your seed?',
-                  parameters:[string(defaultValue:'', description: 'Choose your class seed',
-                  name: 'seed')]),input(message: 'What\'s your seed?',
-                  parameters:[string(defaultValue:'', description: 'Choose your class seed',
-                  name: 'seed')])]
-                  print(SEED_ARRAY[i])
-
+                  name: 'seed')])
                   sh """
                   echo "Seed class chosen: ${SUPER_SEED}"
                   export SUPER_SEED=$SUPER_SEED
