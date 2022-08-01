@@ -42,6 +42,7 @@ pipeline {
               name: 'inputChoice',
               description: 'Select the number of seeds']
             ])
+            sh export inputChoice
 
             if( "{$USER_INPUT}" == "1"){
               echo "You have chosen: ${USER_INPUT} seed"
@@ -59,7 +60,7 @@ pipeline {
 
               else {
                 echo  "You have chosen: {$USER_INPUT} seeds"
-                for(i in 0..params.Integer.parseInt(inputChoice)) {
+                for(i in 0..params.Integer.parseInt(USER_INPUT)) {
                   def SEED_ARRAY = input(message: 'What\'s your seed?',
                   parameters:[string(defaultValue:'', description: 'Choose your class seed',
                   name: 'seed')])
