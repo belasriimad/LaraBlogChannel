@@ -38,39 +38,44 @@ pipeline {
             message: 'How many seeds would you like to implement?',
             parameters: [
               [$class: 'ChoiceParameterDefinition',
-              choices: ['1', '2', '3'].join('\n'),
-              name: 'input',
+              choices: ['1', '2', '3','4'].join('\n'),
+              name: 'inputChoice',
               description: 'Select the number of seeds']
             ])
 
-
-            if( "${USER_INPUT}" == "1"){
+            if( "{$USER_INPUT}" == "1"){
               echo "You have chosen: ${USER_INPUT} seed"
               def SEED_INPUT = input(
                 message: 'What\'s your seed?',
                 parameters:[string(defaultValue: '',
                 description: 'Choose your class seed',
-                name: 'Seed')] )
+                name: 'seedChoice')] )
                 sh """
                 echo "Seed class chosen: ${SEED_INPUT}"
                 export SEED_INPUT=$SEED_INPUT
                 php artisan make:seed $SEED_INPUT
                 php artisan db:seed --class=$SEED_INPUT """
               }
+
               else {
-                echo  "You have chosen: ${USER_INPUT} seeds"
-                i=0;
-                while(i < $USER_INPUT) {
-                  def SEED_ARRAY = input(message: 'What\'s your seed?',
+                echo  "You have chosen: {$USER_INPUT} seeds"
+                for(i=0; i < params.inputChoice.toInteger(); i++) {
+                  def SEED_ARRAY = [input(message: 'What\'s your seed?',
                   parameters:[string(defaultValue:'', description: 'Choose your class seed',
-                  name: 'Seed')])
+                  name: 'seed')]), input(message: 'What\'s your seed?',
+                  parameters:[string(defaultValue:'', description: 'Choose your class seed',
+                  name: 'seed')]),input(message: 'What\'s your seed?',
+                  parameters:[string(defaultValue:'', description: 'Choose your class seed',
+                  name: 'seed')]),input(message: 'What\'s your seed?',
+                  parameters:[string(defaultValue:'', description: 'Choose your class seed',
+                  name: 'seed')])]
+                  print(SEED_ARRAY[i])
 
                   sh """
                   echo "Seed class chosen: ${SUPER_SEED}"
                   export SUPER_SEED=$SUPER_SEED
                   php artisan make:seed $SUPER_SEED
                   php artisan db:seed $SUPER_SEED """
-                  i++;
                 }
               }
             }
