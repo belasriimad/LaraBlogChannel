@@ -59,16 +59,16 @@ pipeline {
 
               else {
                 echo  "You have chosen: ${USER_INPUT} seeds"
-                int value = "${USER_INPUT}" as Integer
-                for(i in 0..4) {
+                int count = "${USER_INPUT}" as Integer
+                for(i=0; i < count; i++) {
                   def SEED_ARRAY = input(message: 'What\'s your seed?',
                   parameters:[string(defaultValue:'', description: 'Choose your class seed',
                   name: 'seed')])
                   sh """
-                  echo "Seed class chosen: ${SUPER_SEED}"
-                  export SUPER_SEED=$SUPER_SEED
-                  php artisan make:seed $SUPER_SEED
-                  php artisan db:seed $SUPER_SEED """
+                  echo "Seed class chosen: ${SEED_ARRAY}"
+                  export SUPER_SEED=$SEED_ARRAY
+                  php artisan make:seed $SEED_ARRAY
+                  php artisan db:seed $SEED_ARRAY """
                 }
               }
             }
