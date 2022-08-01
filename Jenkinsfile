@@ -42,7 +42,6 @@ pipeline {
               name: 'inputChoice',
               description: 'Select the number of seeds']
             ])
-            sh export inputChoice
 
             if( "{$USER_INPUT}" == "1"){
               echo "You have chosen: ${USER_INPUT} seed"
