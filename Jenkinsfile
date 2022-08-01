@@ -59,7 +59,7 @@ pipeline {
 
               else {
                 echo  "You have chosen: {$USER_INPUT} seeds"
-                for(i in 0..params.Integer.parseInt(USER_INPUT)) {
+                for(i in 0..params.Integer.parseInt($USER_INPUT)) {
                   def SEED_ARRAY = input(message: 'What\'s your seed?',
                   parameters:[string(defaultValue:'', description: 'Choose your class seed',
                   name: 'seed')])
