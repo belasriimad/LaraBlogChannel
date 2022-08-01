@@ -66,9 +66,9 @@ pipeline {
                   name: 'seed')])
                   sh """
                   echo "Seed class chosen: ${SEED_ARRAY}"
-                  export SUPER_SEED=$SEED_ARRAY
+                  export SEED_ARRAY=$SEED_ARRAY
                   php artisan make:seed $SEED_ARRAY
-                  php artisan db:seed $SEED_ARRAY """
+                  php artisan db:seed --class=$SEED_ARRAY """
                 }
               }
             }
