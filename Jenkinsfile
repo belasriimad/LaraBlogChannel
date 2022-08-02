@@ -61,23 +61,12 @@ pipeline {
 
       stage('Mail Notification') {
         steps {
-          script {
-
-            def MAIL_NOTIFICATION = input(
-              message: 'Would you like to receive a mail notification with the logs attached?',
-              ok: 'Yes')
-
-            }
-
-            waitUntil() {
-              emailext(subject: 'LBC Pipeline', body: 'A mail from above', attachLog: true, from: 'jenkins@ubuntu.com', to: 'al2a.meskine@gmail.com')
-            }
-
-          }
+          emailext(subject: 'LBC Pipeline', body: 'A mail from above', attachLog: true, from: 'jenkins@ubuntu.com', to: 'al2a.meskine@gmail.com')
         }
+      }
 
-      }
-      environment {
-        DB_DATABASE = 'homestead'
-      }
     }
+    environment {
+      DB_DATABASE = 'homestead'
+    }
+  }
